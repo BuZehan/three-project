@@ -8,7 +8,7 @@ class ControlsManager {
     // 设置默认参数
     this.controls.enableDamping = true; // 启用阻尼效果
     this.controls.dampingFactor = 0.05; // 阻尼系数
-    this.controls.screenSpacePanning = false; // 禁止平移
+    this.controls.screenSpacePanning = true; // 禁止平移
     this.controls.minDistance = 1; // 最小缩放距离
     this.controls.maxDistance = 100; // 最大缩放距离
   }

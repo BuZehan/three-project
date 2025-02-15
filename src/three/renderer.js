@@ -2,8 +2,10 @@ import * as THREE from 'three';
 
 class RendererManager {
   constructor(container, width = window.innerWidth, height = window.innerHeight) {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, logarithmicDepthBuffer: true });
+    this.renderer = new THREE.WebGLRenderer({ antialias: true,logarithmicDepthBuffer: true }); //  alpha: true , 透明背景
     this.renderer.setSize(width, height);
+    // 设置像素
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(this.renderer.domElement);
   }
 
@@ -21,6 +23,7 @@ class RendererManager {
   render(scene, camera) {
     this.renderer.render(scene, camera);
   }
+
 }
 
 export default RendererManager;

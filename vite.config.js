@@ -6,12 +6,15 @@ import { defineConfig } from 'vite'
 //导入 Vite 的 Vue 插件 @vitejs/plugin-vue，该插件允许 Vite 处理 Vue 单文件组件（.vue 文件）。
 import vue from '@vitejs/plugin-vue'
  
+import glsl from 'vite-plugin-glsl';
+
 // https://vitejs.dev/config/
 //使用 defineConfig 包裹配置对象，并导出为默认模块。这允许 Vite 在解析配置时更好地进行类型检查和智能提示。
 export default defineConfig({
   //配置 Vite 插件。在这里，使用 vue() 函数添加 Vue 插件到 Vite 的插件数组中。这使得 Vite 能够处理 Vue 组件的编译和热重载。
   plugins: [
     vue(),
+    glsl()
   ],
   //resolve: 这个属性用于配置模块解析。
   resolve: {

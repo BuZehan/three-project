@@ -55,52 +55,10 @@ onMounted(() => {
         renderer
     );
 
-    /**
-     * Main
-     */
-    gltfLoader.load('/model/bakedModel.glb', (gltf) => {
-        console.log("gltf", gltf);
-        gltf.scene.getObjectByName('baked').material.map.anisotropy = 8;
-        scene.add(gltf.scene)
-    })
+    // Main
+  
 
-
-    /**
-     * Smoke
-     */
-    // Geometry
-    const smokeGeometry = new THREE.PlaneGeometry(1, 1, 16, 64)
-    smokeGeometry.translate(0, 0.5, 0)
-    smokeGeometry.scale(1.5, 6, 1.5)
-
-    // Perlin texture
-    const perlinTexture = textureLoader.load('/textures/perlin.png')
-    perlinTexture.wrapS = THREE.RepeatWrapping
-    perlinTexture.wrapT = THREE.RepeatWrapping
-
-    // Material
-    const smokeMaterial = new THREE.ShaderMaterial({
-        vertexShader: coffeeSmokeVertexShader,
-        fragmentShader: coffeeSmokeFragmentShader,
-        uniforms:
-        {
-            uTime: new THREE.Uniform(0),
-            uPerlinTexture: new THREE.Uniform(perlinTexture)
-        },
-        side: THREE.DoubleSide,
-        transparent: true,
-        depthWrite: false
-        // wireframe: true
-    })
-
-    // Mesh
-    const smoke = new THREE.Mesh(smokeGeometry, smokeMaterial)
-    smoke.position.y = 1.83
-    scene.add(smoke)
-
-    /**
-     * Animate
-     */
+    // Animate
     const clock = new THREE.Clock()
 
     // 渲染循环
