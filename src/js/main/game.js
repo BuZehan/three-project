@@ -120,10 +120,11 @@ function playerCollisions() {
 
 }
 // 更新角色位置信息
+let speedRatio = 1.5
 function updatePlayer(deltaTime) {
     if (!(that.player instanceof THREE.Object3D)) return
 
-    let speedRatio = 1.5
+    
     let damping = Math.exp(-20 * deltaTime) - 1; // 阻尼减速
 
     if (!playerOnFloor) {
@@ -141,16 +142,16 @@ function updatePlayer(deltaTime) {
     // console.log(playerActionState)
     // 前进
     if (playerActionState.forward > 0) {
-        if (playerActionState.turn != 0) {
-            that.player.rotation.y -= playerActionState.turn * deltaTime * 2
-        }
+        // if (playerActionState.turn != 0) {
+        //     that.player.rotation.y -= playerActionState.turn * deltaTime * 2
+        // }
         // 前进状态持续2s以上转为跑步状态
-        if (ForwardHoldTimeClock.getElapsedTime() > 2) {
-            if (playerOnFloor) speedRatio = 4
-            changeAction('run')
-        } else {
-            changeAction('walk')
-        }
+        // if (ForwardHoldTimeClock.getElapsedTime() > 2) {
+        //     if (playerOnFloor) speedRatio = 4
+        //     changeAction('run')
+        // } else {
+        //     changeAction('walk')
+        // }
     }
     if (playerActionState.forward < 0) {
         changeAction('walk')
@@ -158,7 +159,7 @@ function updatePlayer(deltaTime) {
     // 原地转向
     if (playerActionState.forward == 0 && playerActionState.turn != 0) {
         changeAction('walk')
-        that.player.rotation.y -= playerActionState.turn * deltaTime * 2
+        // that.player.rotation.y -= playerActionState.turn * deltaTime * 2
     }
     // 休息状态
     if (playerActionState.forward == 0 && playerActionState.turn == 0) {
@@ -357,6 +358,14 @@ export default function gameInit(th) {
         if (event.code === 'Space') {
             keyStates.Space = true;
         }
+
+        if(event.code === "ShiftLeft") {
+            changeAction('run')
+            if (playerOnFloor) speedRatio = 4
+        }else{
+        changeAction('walk')
+        }
+        
     });
     // 当某个键盘抬起设置对应属性设置为false
     document.addEventListener('keyup', (event) => {
@@ -380,6 +389,9 @@ export default function gameInit(th) {
             playerActionState.turn = 0
         }
         if (event.code === 'Space') keyStates.Space = false
+        if(event.code === "ShiftLeft") {
+            changeAction('walk')
+        }
 
         // 保持按键打断前的状态
         // console.log(keyStates)
